@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+     <meta charset="utf-8">
+     <link rel="stylesheet" href="{% static 'data_app/bootstrap.min.css' %}">
+     <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900" rel="stylesheet">
+     <script src="{% static 'data_app/jquery-3.6.0.min.js' %}" type="text/javascript"></script>
+     <link rel="stylesheet" href="{% static 'data_app/choices.min.css'%}">
+     <script src="{% static 'data_app/choices.min.js' %}" type="text/javascript"></script>
+     <title>Data Portal</title>
+     <style>
+       .background{
+         background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)),url({% static "data_app/images/datascience.jpg" %});
+         background-position: center;
+         background-size: cover;
+         background-repeat: repeat;
+       }
+       table{
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 75%;
+        margin-left:15%;
+        margin-right:15%;
+        }
+        td, th {
+        border: 0px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+        }
+        .blog-header {
+        line-height: 1;
+        border-bottom: 1px solid #e5e5e5;
+        }
+        .blog-header-logo {
+        font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+        font-size: 2.25rem;
+        color : #ffffff;
+        }
+        .blog-header-logo:hover
+        {   text-decoration: none;
+        color: white;
+        }
+        .container-fluid{
+        background: black !important;
+        text-align:center;
+        }
+        .navbar-header {
+        width:100%;
+        justify-content:center;
+        display:flex !important;
+        font-weight:600;
+        background:transparent !important;
+        }
+        footer{
+        color: white;
+        background: black;
+        }
+      </style>
+  </head>
+  <body>
+    <div class="background">
+    <!-- HEADER -->
+    <div class="container">
+      <header class="blog-header py-3 container-fluid">
+        <nav class="navbar navbar-inverse">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <div class = "col-4 text-center">
+                <a class="blog-header-logo navbar-brand" href="#">DATA PORTAL</a>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <div class="nav-scroller py-1 mb-2">
+        <nav class="nav d-flex align-items-center">
+          <div class = "col-sm-4 text-center"></div>
+          <div class = "col-sm-4 text-center">
+            <a class="p-2 text-muted" href="#HowItWorks">How it Works?</a>
+            <a class="p-2 text-muted" href="#PredictNow">Predict Now</a>
+            <a class="p-2 text-muted" href="#ContactUs">Contact Us</a>
+          </div>
+          <div class = "col-sm-4 text-center"></div>
+        </nav>
+      </div>
+    </div>
+    <br>
+    <!-- HOW IT WORKS? -->
+    <div id="HowItWorks">
+      <div class="container">
+          <div class="jumbotron">
+            <center><h1>How it Works?</h1></center>
+            <br>
+            <p>This is a web portal that would help researchers implement algorithms for ranking from pairwise comparisons easily and visualize results quickly. In this user have to select the dataset type and fill the required fields after which the system will train and give the results.</p>
+            <form action="#PredictNow"><center><button type="submit" class="btn btn-primary">Predict Now</button><center></form>
+          </div>
+        </div>
+      </div>
+    <!-- PREDICT NOW -->
+    <div id="PredictNow">
+      <div class="container">
+        <div class="jumbotron">
+        <center><h2>Predict Now</h2></center>
+        <br>
+          <form method="post" id="Form" enctype="multipart/form-data">
+            {%csrf_token%}
+            <table>
+            <tbody>
+            <tr>
+            <td width="246">Dataset Type : </td>
+             <td width="187"><select id="dataset_type" name="dataset_type">
+             <option> Dataset Type </option>
+             <option value="Real"> Real-time </option>
+             <option value="Synthetic"> Synthetic </option></select></td>
+            </tr>
+            </tbody>
+            </table>
+            <div id="dataset-real" style="display:none;">
+            <table>
+            <tbody>
+            <tr>
+            <td width="246">Select Dataset: </td>
+            <td width="187"><select name="dataset">
+            <option value = "data1">data - 1</option>
+            <option value = "data2">data - 2</option>
+            <option value = "data3">data - 3</option>
+            </select>
+            </td></tr>
+            </tbody>
+            </table>
+            </div>
+            <div id="dataset-synthetic" style="display:none;">
+            <table>
+            <tbody>
+            <tr>
+            <td width="246">Model : </td>
+            <td width="187"><select name="model" id = "datamodel">
+              <option> Data Model </option>
+              {% for m in db.modelname %}
+             <option value="{{m.datamodel_name}}">{{m.datamodel_name}}</option>
+             {% endfor %}
+            </select></td>
+            </tr>
+            <tr>
+            <td width="246">Number of Pairs: </td>
+            <td width="187"><input type="number" name="pairs" value=""></td>
+            </tr>
+            <tr>
+            <td width="246" >Number of Repetitions:</td>
+            <td width="187"><input type="number" name="repetitions" value=""></td>
+            </tr>
+            </tbody>
+            </table>
+            </div>
+            <div id="Model-ExactP" style="display:none;">
+              <table>
+              <tbody>
+              <tr>
+              <td width="246">Input Probability Matrix: </td>
+              <td width="187"><input type="file" name="myfile"></td>
+              </tr>
+              </tbody>
+              </table>
+            </div>
+            <div id="Model-BTL" style="display:none;">
+              <table>
+              <tbody>
+              <tr>
+              <td width="246" >Number of Items: </td>
+              <td width="187"><input type="number" name="items" value=""></td>
+              </tr>
+              <tr>
+              </tbody>
+              </table>
+            </div>
+
+            <table>
+            <tbody>
+            <tr>
+            <td width="246" >Choose Algorithm : </td>
+            <td width="187"><select id="choices-multiple-remove-button"name="algorithm" placeholder="Select" multiple>
+             {% for a in db.algorithmname %}
+            <option value="{{a.algorithm_name}}">{{a.algorithm_name}}</option>
+            {% endfor %}
+            </select></td>
+            </tr>
+            <tr>
+            <td width="246">Train :</td>
+            <td width="187"><input type="range" id="myInput1" name="train"  min="1" max="100" value="80"
+            oninput="showVal(this.value)" onchange="showVal(this.value)"  >
+            <span id="valBox"></span></td>
+            </tr>
+            <tr>
+            <td width="246">Test :</td>
+            <td width="187"><input type="range" id="mytest1"name="test" min="1" max="100" value="20"
+            oninput="showVal1(this.value)" onchange="showVal1(this.value)">
+            <span id="valBox1"></span></td>
+            </tr>
+            </tbody>
+            </table>
+            <br>
+            <center><button type="submit"id=train_button value="train" name="Train" class="btn btn-primary">Train</button><center>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+<div id="dataset_view" >
+      <div class="container">
+      <div class="jumbotron">
+        <table>
+        <tbody>
+          <tr>
+          <td width="246"><a href="{{ model }}"  download class="text-dark text-justify "> Model : </a> </td>
+          <td width="187"><a class="btn btn-outline-primary  btn-d "  href="{{ model }}"  download type="submit"><i class="fas fa-download">Download</i></a></td>
+          </tr>
+        <tr>
+        <td width="246"><a href="{{ file }}"  download class="text-dark text-justify "> Dataset : </a> </td>
+        <td width="187"><a class="btn btn-outline-primary  btn-d "  href="{{ file }}"  download type="submit"><i class="fas fa-download">Download</i></a></td>
+        </tr>
+        {% if dat.bc %}
+        <tr>
+        <td width="246"> Algorithm :</td>
+        <td width="187">{{dat.bc.alg}}</td>
+      </tr>
+        <tr>
+        <td width="246"> Sigma :</td>
+        <td width="187">{{dat.bc.sc}}</td>
+        </tr>
+        <td width="246"> Resultant Error :</td>
+        <td width="187">{{dat.bc.er}}%</td>
+        </tr>
+        <tr>
+        <td width="246"> Accuracy :</td>
+        <td width="187">{{dat.bc.ac}}%</td>
+        </tr>
+        {% endif %}
+        {% if dat.rc %}
+        <tr>
+        <td width="246"> Algorithm :</td>
+        <td width="187">{{dat.rc.alg}}</td>
+      </tr>
+        <tr>
+        <td width="246"> Sigma :</td>
+        <td width="187">{{dat.rc.sc}}</td>
+        </tr>
+        <td width="246"> Resultant Error :</td>
+        <td width="187">{{dat.rc.er}}%</td>
+        </tr>
+        <tr>
+        <td width="246"> Accuracy :</td>
+        <td width="187">{{dat.rc.ac}}%</td>
+        </tr>
+        {% endif %}
+        {% if dat.lc %}
+        <tr>
+        <td width="246"> Algorithm :</td>
+        <td width="187">{{dat.lc.alg}}</td>
+      </tr>
+        <tr>
+        <td width="246"> Sigma :</td>
+        <td width="187">{{dat.lc.sc}}</td>
+        </tr>
+        <td width="246"> Resultant Error :</td>
+        <td width="187">{{dat.lc.er}}%</td>
+        </tr>
+        <tr>
+        <td width="246"> Accuracy :</td>
+        <td width="187">{{dat.lc.ac}}%</td>
+        </tr>
+        {% endif %}
+      </tbody>
+      </table>
+    </center>
+    </div>
+  </div>
+</div>
+
+    <!-- CONTACT US -->
+    <div id = "ContactUs">
+      <div class="container">
+        <div class="jumbotron">
+          <h1><center>Contact Us</center></h1>
+            <br>
+            <form class="" action="index.html" method="post">
+              <table>
+              <tbody>
+              <tr>
+              <td width="246">Name : </td>
+              <td width="187"><input type="text" name="name" placeholder="Enter Name" autofocus></td>
+              </tr>
+              <tr>
+              <td width="246">Email ID : </td>
+              <td width="187"><input type="email" aria-describedby="emailHelp" placeholder="Enter email">
+              </td></tr>
+              <tr>
+              <td >Message : </td>
+              <td><textarea name="message" cols="23" placeholder="Enter your Message"></textarea></td>
+              </tr>
+              </tbody>
+              </table>
+              <br>
+              <section>
+              <center><button type="submit" class="btn btn-primary">Send Message</button></center>
+			        </section>
+              </form>
+            </div>
+          </div>
+        </div>
+    <!-- FOOTER -->
+    <div class="container">
+      <footer class="page-footer font-small special-color-dark pt-4">
+        <div class="footer-copyright text-center py-3">Designed by: Praja S S <br> Contact: sspraja03@gmail.com</div>
+      </footer>
+    </div>
+  </div>
+<script>
+  function showVal(newVal){
+  document.getElementById("valBox").innerHTML=newVal;
+  }
+  function showVal1(newVal1){
+    document.getElementById("valBox1").innerHTML=newVal1;
+    }
+  $('#dataset_type').change(function(){
+     selection = $(this).val();
+     switch(selection)
+     {
+         case 'Real':
+             $('#dataset-real').show();
+             $('#dataset-synthetic').hide();
+             break;
+         case 'Synthetic':
+             $('#dataset-real').hide();
+             $('#dataset-synthetic').show();
+             break;
+        default:
+              $('#dataset-real').hide();
+              $('#dataset-synthetic').hide();
+              break;
+     }
+  });
+  $('#datamodel').change(function(){
+     selection = $(this).val();
+     switch(selection)
+     {
+         case 'Exact P':
+             $('#Model-ExactP').show();
+             $('#Model-BTL').hide();
+             break;
+         case 'BTL Model':
+             $('#Model-BTL').show();
+             $('#Model-ExactP').hide();
+             break;
+        default:
+              $('#Model-ExactP').hide();
+              $('#Model-BTL').hide();
+              break;
+     }
+  });
+  /* $('#train_button').change(function(){
+     selection = $(this).val();
+     switch(selection)
+     {
+         case 'train':
+             $('#dataset_view').show();
+             break;
+        default:
+              $('#dataset_view').hide();
+              break;
+     }
+  }); */
+  $(document).ready(function(){
+    var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+    removeItemButton: true,});
+  });
+</script>
+  </body>
+</html>

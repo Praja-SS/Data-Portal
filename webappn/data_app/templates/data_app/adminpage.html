@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+     <meta charset="utf-8">
+     <link rel="stylesheet" href="{% static 'data_app/bootstrap.min.css' %}">
+     <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900" rel="stylesheet">
+     <script src="{% static 'data_app/jquery-3.6.0.min.js' %}" type="text/javascript"></script>
+     <link rel="stylesheet" href="{% static 'data_app/choices.min.css'%}">
+     <script src="{% static 'data_app/choices.min.js' %}" type="text/javascript"></script>
+     <title>Data Portal</title>
+     <style>
+     .background{
+       background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)),url({% static "data_app/images/datascience.jpg" %});
+       background-position: center;
+       background-size: cover;
+       background-repeat: repeat;
+      }
+      .css-serial {
+        counter-reset: serial-number;  /* Set the serial number counter to 0 */
+      }
+
+      .css-serial td:first-child:before {
+        counter-increment: serial-number;  /* Increment the serial number counter */
+        content: counter(serial-number);  /* Display the counter */
+      }
+     table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 75%;
+      margin-left:15%;
+      margin-right:15%;
+      }
+      td, th {
+      border: 0px solid #dddddd;
+      text-align: center;
+      padding: 8px;
+      }
+     .blog-header {
+     line-height: 1;
+     border-bottom: 1px solid #e5e5e5;
+     }
+     .blog-header-logo {
+     font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+     font-size: 2.25rem;
+     color : #ffffff;
+     }
+     .blog-header-logo:hover
+     {   text-decoration: none;
+     color: white;
+     }
+     .container-fluid{
+     background: black !important;
+     text-align:center;
+     }
+     .navbar-header {
+     width:100%;
+     justify-content:center;
+     display:flex !important;
+     font-weight:600;
+     background:transparent !important;
+     }
+     footer{
+     color: white;
+     background: black;
+     }
+    </style>
+  </head>
+    <body>
+      <div class="background">
+        <!-- HEADER -->
+        <div class="container">
+           <header class="blog-header py-3 container-fluid">
+             <nav class="navbar navbar-inverse">
+               <div class="container-fluid">
+                 <div class="navbar-header">
+                   <div class = "col-4 text-center">
+                     <a class="blog-header-logo navbar-brand" href="#">DATA PORTAL</a>
+                   </div>
+                 </div>
+               </div>
+             </nav>
+           </header>
+          </div>
+          <div class="nav-scroller py-1 mb-2">
+            <nav class="nav d-flex align-items-center">
+              <div class = "col-sm-4 text-center"></div>
+              <div class = "col-sm-4 text-center">
+                <a class="p-2 text-muted" href="#Datasets">Datasets</a>
+                <a class="p-2 text-muted" href="#Models">Models</a>
+                <a class="p-2 text-muted" href="#Algorithms">Algorithms</a>
+              </div>
+              <div class = "col-sm-4 text-center"></div>
+            </nav>
+          </div>
+           <br><br>
+      <!-- DATABASE -->
+        <!-- DATASETS -->
+         <div id = "Datasets">
+           <div class="container">
+             <div class="jumbotron">
+               <h1><center>Datasets</center></h1>
+                 <br>
+                   <table class="css-serial">
+                   <tbody>
+                   <tr>
+                   <th>S.No</th><th>Datasets</th><th>Action</th>
+                   </tr>
+                   <tr>
+                   <td></td>
+                   <td>Dataset 1</td>
+                   <td><button  type="submit" class="btn btn-primary">Delete</button></td>
+                   </tr>
+                   <tr>
+                   <td></td>
+                   <td>Dataset 2</td>
+                   <td><button  type="submit" class="btn btn-primary">Delete</button></td>
+                   </tr>
+                   </tbody>
+                   </table>
+                 <br>
+                 <section>
+                   <center><button  type="submit" class="btn btn-primary">Add Dataset</button></center>
+                 </section>
+             </div>
+           </div>
+         </div>
+         <!-- Models -->
+         <div id = "Models">
+           <div class="container">
+             <div class="jumbotron">
+               <h1><center>Models</center></h1>
+                 <br>
+                   <table class="css-serial">
+                   <tbody>
+                   <tr>
+                   <th>S.No</th><th>Model</th><th>Action</th>
+                   </tr>
+                    {% for m in modelname %}
+                   <tr>
+                   <td></td>
+                   <td>{{m.datamodel_name}}</td>
+                   <td><button  type="submit" class="btn btn-primary">Delete</button></td>
+                   </tr>
+                    {% endfor %}
+                   </tbody>
+                   </table>
+                 <br>
+                 <section>
+                   <center><button  type="submit" class="btn btn-primary">Add Model</button></center>
+ 			           </section>
+               </div>
+             </div>
+           </div>
+           <!-- AlGORITHMS -->
+            <div id = "Algorithms">
+              <div class="container">
+                <div class="jumbotron">
+                  <h1><center>Algorithms</center></h1>
+                    <br>
+                    <table class="css-serial">
+                    <tbody>
+                    <tr>
+                    <th>S.No</th><th>Algorithm</th><th>Action</th>
+                    </tr>
+                     {% for a in algorithmname %}
+                    <tr>
+                    <td></td>
+                    <td>{{a.algorithm_name}}</td>
+                    <td><button  type="submit" class="btn btn-primary">Delete</button></td>
+                    </tr>
+                     {% endfor %}
+                    </tbody>
+                    </table>
+                    <br>
+                    <section>
+                      <center><button  type="submit" class="btn btn-primary">Add Dataset</button></center>
+                    </section>
+                </div>
+              </div>
+            </div>
+        <!-- FOOTER -->
+         <div class="container">
+           <footer class="page-footer font-small special-color-dark pt-4">
+             <div class="footer-copyright text-center py-3">© 2020 Copyright: Data Portal</div>
+           </footer>
+         </div>
+       </div>
+     </body>
+   </html>
