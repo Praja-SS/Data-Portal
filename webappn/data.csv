@@ -1,0 +1,10 @@
+csrfmiddlewaretoken,ttVsM7WXe4E5hrK4S9JXMYVOkFVQBPtibDveKdzFsb7zKGNkSdPjP5y4aBtnmPMe
+dataset_type,Synthetic
+dataset,data1
+model,Exact P
+items,5
+pairs,7
+repetitions,7
+algorithm,Borda Count
+train,80
+test,20

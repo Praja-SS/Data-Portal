@@ -1,0 +1,12 @@
+csrfmiddlewaretoken,8NblHNU7cBsHQxT6TZ2DKahrBkjHzAmBrEuRtLZUL7ngwkLJ6QZsgO6iML9a7qJ0
+dataset_type,Synthetic
+dataset,data1
+model,BTL Model
+pairs,45
+repetitions,100
+myfile,
+items,10
+algorithm,Rank Centrality
+train,80
+test,20
+Train,train
