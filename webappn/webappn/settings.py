@@ -30,6 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['dataportal.pythonanywhere.com']
 
+
 # Application definition
 
 INSTALLED_APPS = [
